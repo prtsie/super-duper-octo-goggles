@@ -75,6 +75,7 @@
             // menuStripOpenFile
             // 
             menuStripOpenFile.Name = "menuStripOpenFile";
+            menuStripOpenFile.ShortcutKeyDisplayString = "Ctrl + O";
             menuStripOpenFile.Size = new Size(247, 22);
             menuStripOpenFile.Text = "Открыть";
             menuStripOpenFile.Click += menuStripOpenFile_Click;

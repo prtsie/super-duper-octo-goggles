@@ -11,6 +11,7 @@ namespace NotePad
         {
             InitializeComponent();
             Text = "New";
+            menuStripOpenFile.ShortcutKeys = Keys.Control | Keys.O;
             menuStripSaveFile.ShortcutKeys = Keys.Control | Keys.S;
             menuStripSaveFileAs.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
         }
