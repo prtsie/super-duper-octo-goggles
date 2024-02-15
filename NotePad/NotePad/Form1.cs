@@ -40,14 +40,14 @@ namespace NotePad
             Save();
         }
 
-        private static DialogResult SaveOnClose() =>
+        private static DialogResult RequestSaveOnClose() =>
             MessageBox.Show("Сохранить файл?", "Сохранение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
         private void menuStripOpenFile_Click(object sender, EventArgs e)
         {
             if (isChanged)
             {
-                switch (SaveOnClose())
+                switch (RequestSaveOnClose())
                 {
                     case DialogResult.Cancel:
                         return;
@@ -92,6 +92,28 @@ namespace NotePad
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             isChanged = true;
+        }
+
+        private void NotepadForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            switch (RequestSaveOnClose())
+            {
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+                case DialogResult.Yes:
+                    if (file is not null)
+                    {
+                        Save();
+                    }
+                    else
+                    {
+                        SaveAs();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

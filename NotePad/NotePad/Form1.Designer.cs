@@ -44,7 +44,7 @@
             // 
             textBox.AcceptsTab = true;
             textBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox.Location = new Point(0, 27);
+            textBox.Location = new Point(0, 24);
             textBox.Multiline = true;
             textBox.Name = "textBox";
             textBox.ScrollBars = ScrollBars.Vertical;
@@ -105,7 +105,7 @@
             // 
             saveFileDialog.DefaultExt = "txt";
             // 
-            // Form1
+            // NotepadForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -113,8 +113,9 @@
             Controls.Add(textBox);
             Controls.Add(menuStrip);
             MainMenuStrip = menuStrip;
-            Name = "Form1";
+            Name = "NotepadForm";
             Text = "Form1";
+            FormClosing += NotepadForm_FormClosing;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             ResumeLayout(false);
