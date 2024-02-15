@@ -15,7 +15,7 @@ namespace NotePad
             menuStripSaveFileAs.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
         }
 
-        private static FileInfo? GetFile(FileDialog dialog)
+        private static FileInfo? RequestFile(FileDialog dialog)
         {
             if (dialog.ShowDialog() == DialogResult.Cancel)
             {
@@ -36,7 +36,7 @@ namespace NotePad
 
         private void SaveAs()
         {
-            file = GetFile(saveFileDialog);
+            file = RequestFile(saveFileDialog);
             Save();
         }
 
@@ -65,7 +65,7 @@ namespace NotePad
                         break;
                 }
             }
-            file = GetFile(openFileDialog);
+            file = RequestFile(openFileDialog);
             if (file is not null)
             {
                 using var reader = file.OpenText();
