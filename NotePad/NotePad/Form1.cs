@@ -24,6 +24,27 @@ namespace NotePad
             return new FileInfo(dialog.FileName);
         }
 
+        private static DialogResult RequestSaveOnClose() =>
+            MessageBox.Show("Сохранить файл?", "Сохранение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+        private Color? RequestColor()
+        {
+            if (colorDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return null;
+            }
+            return colorDialog.Color;
+        }
+
+        private (Font font, Color color)? RequestFont()
+        {
+            if (fontDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return null;
+            }
+            return (fontDialog.Font, fontDialog.Color);
+        }
+
         private void Save()
         {
             if (file is not null)
@@ -39,9 +60,6 @@ namespace NotePad
             file = RequestFile(saveFileDialog);
             Save();
         }
-
-        private static DialogResult RequestSaveOnClose() =>
-            MessageBox.Show("Сохранить файл?", "Сохранение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
         private void menuStripOpenFile_Click(object sender, EventArgs e)
         {
@@ -96,23 +114,45 @@ namespace NotePad
 
         private void NotepadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            switch (RequestSaveOnClose())
+            if (isChanged)
             {
-                case DialogResult.Cancel:
-                    e.Cancel = true;
-                    break;
-                case DialogResult.Yes:
-                    if (file is not null)
-                    {
-                        Save();
-                    }
-                    else
-                    {
-                        SaveAs();
-                    }
-                    break;
-                default:
-                    break;
+                switch (RequestSaveOnClose())
+                {
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    case DialogResult.Yes:
+                        if (file is not null)
+                        {
+                            Save();
+                        }
+                        else
+                        {
+                            SaveAs();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void menuStripBackGroundColor_Click(object sender, EventArgs e)
+        {
+            var color = RequestColor();
+            if (color is not null)
+            {
+                textBox.BackColor = color.Value;
+            }
+        }
+
+        private void menuStripFont_Click(object sender, EventArgs e)
+        {
+            var userInput = RequestFont();
+            if (userInput is not null)
+            {
+                textBox.Font = userInput.Value.font;
+                textBox.ForeColor = userInput.Value.color;
             }
         }
     }

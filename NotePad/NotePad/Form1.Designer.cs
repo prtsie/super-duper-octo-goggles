@@ -35,8 +35,12 @@
             menuStripSaveFile = new ToolStripMenuItem();
             menuStripSaveFileAs = new ToolStripMenuItem();
             menuStripView = new ToolStripMenuItem();
+            menuStripFont = new ToolStripMenuItem();
+            menuStripBackGroundColor = new ToolStripMenuItem();
             openFileDialog = new OpenFileDialog();
             saveFileDialog = new SaveFileDialog();
+            colorDialog = new ColorDialog();
+            fontDialog = new FontDialog();
             menuStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,11 +48,11 @@
             // 
             textBox.AcceptsTab = true;
             textBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox.Location = new Point(0, 24);
+            textBox.Location = new Point(0, 23);
             textBox.Multiline = true;
             textBox.Name = "textBox";
             textBox.ScrollBars = ScrollBars.Vertical;
-            textBox.Size = new Size(800, 423);
+            textBox.Size = new Size(800, 430);
             textBox.TabIndex = 0;
             textBox.TextChanged += textBox_TextChanged;
             // 
@@ -93,9 +97,24 @@
             // 
             // menuStripView
             // 
+            menuStripView.DropDownItems.AddRange(new ToolStripItem[] { menuStripFont, menuStripBackGroundColor });
             menuStripView.Name = "menuStripView";
             menuStripView.Size = new Size(39, 20);
             menuStripView.Text = "Вид";
+            // 
+            // menuStripFont
+            // 
+            menuStripFont.Name = "menuStripFont";
+            menuStripFont.Size = new Size(180, 22);
+            menuStripFont.Text = "Шрифт";
+            menuStripFont.Click += menuStripFont_Click;
+            // 
+            // menuStripBackGroundColor
+            // 
+            menuStripBackGroundColor.Name = "menuStripBackGroundColor";
+            menuStripBackGroundColor.Size = new Size(180, 22);
+            menuStripBackGroundColor.Text = "Цвет фона";
+            menuStripBackGroundColor.Click += menuStripBackGroundColor_Click;
             // 
             // openFileDialog
             // 
@@ -104,6 +123,10 @@
             // saveFileDialog
             // 
             saveFileDialog.DefaultExt = "txt";
+            // 
+            // fontDialog
+            // 
+            fontDialog.ShowColor = true;
             // 
             // NotepadForm
             // 
@@ -133,5 +156,9 @@
         private ToolStripMenuItem menuStripOpenFile;
         private OpenFileDialog openFileDialog;
         private SaveFileDialog saveFileDialog;
+        private ToolStripMenuItem menuStripFont;
+        private ToolStripMenuItem menuStripBackGroundColor;
+        private ColorDialog colorDialog;
+        private FontDialog fontDialog;
     }
 }
