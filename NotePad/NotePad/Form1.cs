@@ -6,14 +6,29 @@ namespace NotePad
     {
         private FileInfo? file;
         private bool isChanged;
+        private int charsTyped;
+        private const int TimerTick = 3000; //In milliseconds
+        private const int MinuteInMilliseconds = 60000;
 
         public NotepadForm()
         {
             InitializeComponent();
             Text = "New";
+            typingSpeedLabel.Text = "0 символов в минуту";
+            cursorPositionLabel.Text = "Строка: 1 | Столбец: 1";
+            timer.Interval = TimerTick;
             menuStripOpenFile.ShortcutKeys = Keys.Control | Keys.O;
             menuStripSaveFile.ShortcutKeys = Keys.Control | Keys.S;
             menuStripSaveFileAs.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+        }
+
+        private void CalculateCursorPosition()
+        {
+            var selectionIndex = textBox.SelectionStart;
+            var textBeforeCaret = textBox.Text[..selectionIndex];
+            var lineIndex = textBeforeCaret.Count(substr => substr == '\n');
+            var col = selectionIndex - textBeforeCaret.LastIndexOf('\n');
+            cursorPositionLabel.Text = $"Строка: {lineIndex + 1} | Столбец: {col}";
         }
 
         private static FileInfo? RequestFile(FileDialog dialog)
@@ -111,6 +126,11 @@ namespace NotePad
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             isChanged = true;
+            if (!timer.Enabled)
+            {
+                timer.Start();
+            }
+            charsTyped++;
         }
 
         private void NotepadForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -156,5 +176,17 @@ namespace NotePad
                 textBox.ForeColor = userInput.Value.color;
             }
         }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            var typingSpeed = charsTyped * (MinuteInMilliseconds / TimerTick);
+            typingSpeedLabel.Text = $"{typingSpeed} символов в минуту";
+            charsTyped = 0;
+        }
+
+        private void textBox_MouseDown(object sender, MouseEventArgs e) => CalculateCursorPosition();
+
+        private void textBox_KeyUp(object sender, KeyEventArgs e) => CalculateCursorPosition();
     }
 }

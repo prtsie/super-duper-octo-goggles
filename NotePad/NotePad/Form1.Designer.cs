@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             textBox = new TextBox();
             menuStrip = new MenuStrip();
             menuStripFile = new ToolStripMenuItem();
@@ -41,20 +42,29 @@
             saveFileDialog = new SaveFileDialog();
             colorDialog = new ColorDialog();
             fontDialog = new FontDialog();
+            timer = new System.Windows.Forms.Timer(components);
+            statusStrip1 = new StatusStrip();
+            typingSpeedLabel = new ToolStripStatusLabel();
+            cursorPositionLabel = new ToolStripStatusLabel();
             menuStrip.SuspendLayout();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // textBox
             // 
             textBox.AcceptsTab = true;
             textBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBox.Location = new Point(0, 23);
+            textBox.BorderStyle = BorderStyle.None;
+            textBox.Location = new Point(0, 26);
             textBox.Multiline = true;
             textBox.Name = "textBox";
-            textBox.ScrollBars = ScrollBars.Vertical;
-            textBox.Size = new Size(800, 430);
+            textBox.ScrollBars = ScrollBars.Both;
+            textBox.Size = new Size(800, 402);
             textBox.TabIndex = 0;
+            textBox.WordWrap = false;
             textBox.TextChanged += textBox_TextChanged;
+            textBox.KeyUp += textBox_KeyUp;
+            textBox.MouseDown += textBox_MouseDown;
             // 
             // menuStrip
             // 
@@ -106,14 +116,14 @@
             // menuStripFont
             // 
             menuStripFont.Name = "menuStripFont";
-            menuStripFont.Size = new Size(180, 22);
+            menuStripFont.Size = new Size(132, 22);
             menuStripFont.Text = "Шрифт";
             menuStripFont.Click += menuStripFont_Click;
             // 
             // menuStripBackGroundColor
             // 
             menuStripBackGroundColor.Name = "menuStripBackGroundColor";
-            menuStripBackGroundColor.Size = new Size(180, 22);
+            menuStripBackGroundColor.Size = new Size(132, 22);
             menuStripBackGroundColor.Text = "Цвет фона";
             menuStripBackGroundColor.Click += menuStripBackGroundColor_Click;
             // 
@@ -129,11 +139,40 @@
             // 
             fontDialog.ShowColor = true;
             // 
+            // timer
+            // 
+            timer.Tick += timer_Tick;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { typingSpeedLabel, cursorPositionLabel });
+            statusStrip1.Location = new Point(0, 426);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(800, 24);
+            statusStrip1.TabIndex = 2;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // typingSpeedLabel
+            // 
+            typingSpeedLabel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            typingSpeedLabel.Name = "typingSpeedLabel";
+            typingSpeedLabel.Size = new Size(118, 19);
+            typingSpeedLabel.Text = "toolStripStatusLabel1";
+            // 
+            // cursorPositionLabel
+            // 
+            cursorPositionLabel.BorderSides = ToolStripStatusLabelBorderSides.Left;
+            cursorPositionLabel.Name = "cursorPositionLabel";
+            cursorPositionLabel.RightToLeft = RightToLeft.No;
+            cursorPositionLabel.Size = new Size(122, 19);
+            cursorPositionLabel.Text = "toolStripStatusLabel1";
+            // 
             // NotepadForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(statusStrip1);
             Controls.Add(textBox);
             Controls.Add(menuStrip);
             MainMenuStrip = menuStrip;
@@ -142,6 +181,8 @@
             FormClosing += NotepadForm_FormClosing;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,5 +202,9 @@
         private ToolStripMenuItem menuStripBackGroundColor;
         private ColorDialog colorDialog;
         private FontDialog fontDialog;
+        private System.Windows.Forms.Timer timer;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel typingSpeedLabel;
+        private ToolStripStatusLabel cursorPositionLabel;
     }
 }
