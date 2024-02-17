@@ -14,8 +14,8 @@ namespace NotePad
         {
             InitializeComponent();
             Text = "New";
-            typingSpeedLabel.Text = "0 символов в минуту";
-            cursorPositionLabel.Text = "Строка: 1 | Столбец: 1";
+            typingSpeedLabel.Text = "0 СЃРёРјРІРѕР»РѕРІ РІ РјРёРЅСѓС‚Сѓ";
+            cursorPositionLabel.Text = "РЎС‚СЂРѕРєР°: 1 | РЎС‚РѕР»Р±РµС†: 1";
             timer.Interval = TimerTick;
             menuStripOpenFile.ShortcutKeys = Keys.Control | Keys.O;
             menuStripSaveFile.ShortcutKeys = Keys.Control | Keys.S;
@@ -28,7 +28,7 @@ namespace NotePad
             var textBeforeCaret = textBox.Text[..selectionIndex];
             var lineIndex = textBeforeCaret.Count(substr => substr == '\n');
             var col = selectionIndex - textBeforeCaret.LastIndexOf('\n');
-            cursorPositionLabel.Text = $"Строка: {lineIndex + 1} | Столбец: {col}";
+            cursorPositionLabel.Text = $"РЎС‚СЂРѕРєР°: {lineIndex + 1} | РЎС‚РѕР»Р±РµС†: {col}";
         }
 
         private static FileInfo? RequestFile(FileDialog dialog)
@@ -41,7 +41,7 @@ namespace NotePad
         }
 
         private static DialogResult RequestSaveOnClose() =>
-            MessageBox.Show("Сохранить файл?", "Сохранение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            MessageBox.Show("РЎРѕС…СЂР°РЅРёС‚СЊ С„Р°Р№Р»?", "РЎРѕС…СЂР°РЅРµРЅРёРµ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
         private Color? RequestColor()
         {
@@ -181,7 +181,7 @@ namespace NotePad
         {
             timer.Stop();
             var typingSpeed = charsTyped * (MinuteInMilliseconds / TimerTick);
-            typingSpeedLabel.Text = $"{typingSpeed} символов в минуту";
+            typingSpeedLabel.Text = $"{typingSpeed} Г±ГЁГ¬ГўГ®Г«Г®Гў Гў Г¬ГЁГ­ГіГІГі";
             charsTyped = 0;
         }
 
