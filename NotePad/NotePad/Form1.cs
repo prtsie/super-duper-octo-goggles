@@ -126,11 +126,6 @@ namespace NotePad
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             isChanged = true;
-            if (!timer.Enabled)
-            {
-                timer.Start();
-            }
-            charsTyped++;
         }
 
         private void NotepadForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -181,12 +176,21 @@ namespace NotePad
         {
             timer.Stop();
             var typingSpeed = charsTyped * (MinuteInMilliseconds / TimerTick);
-            typingSpeedLabel.Text = $"{typingSpeed} ñèìâîëîâ â ìèíóòó";
+            typingSpeedLabel.Text = $"{typingSpeed} символов в минуту";
             charsTyped = 0;
         }
 
         private void textBox_MouseDown(object sender, MouseEventArgs e) => CalculateCursorPosition();
 
         private void textBox_KeyUp(object sender, KeyEventArgs e) => CalculateCursorPosition();
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!timer.Enabled)
+            {
+                timer.Start();
+            }
+            charsTyped++;
+        }
     }
 }

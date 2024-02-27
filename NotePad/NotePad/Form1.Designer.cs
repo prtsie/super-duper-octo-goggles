@@ -63,6 +63,7 @@
             textBox.TabIndex = 0;
             textBox.WordWrap = false;
             textBox.TextChanged += textBox_TextChanged;
+            textBox.KeyPress += textBox_KeyPress;
             textBox.KeyUp += textBox_KeyUp;
             textBox.MouseDown += textBox_MouseDown;
             // 
